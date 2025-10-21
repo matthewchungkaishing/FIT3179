@@ -1,0 +1,182 @@
+﻿{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "data/uv_climatology_selected_years.csv"
+  },
+  "columns": 4,
+  "spacing": 20,
+  "facet": {
+    "field": "city",
+    "type": "nominal",
+    "header": {
+      "title": null,
+      "labelFontSize": 13,
+      "labelFontWeight": 700,
+      "labelPadding": 10,
+      "labelColor": "#2c3e50"
+    }
+  },
+  "spec": {
+    "width": 200,
+    "height": 140,
+    "layer": [
+      {
+        "mark": {
+          "type": "rule",
+          "strokeDash": [3, 3],
+          "color": "#d0d0d0",
+          "strokeWidth": 1
+        },
+        "encoding": {
+          "y": {"datum": 3}
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "strokeDash": [3, 3],
+          "color": "#ffa500",
+          "strokeWidth": 1.5
+        },
+        "encoding": {
+          "y": {"datum": 6}
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "strokeDash": [3, 3],
+          "color": "#ff6b6b",
+          "strokeWidth": 1.5
+        },
+        "encoding": {
+          "y": {"datum": 8}
+        }
+      },
+      {
+        "mark": {
+          "type": "rule",
+          "strokeDash": [3, 3],
+          "color": "#d63031",
+          "strokeWidth": 2
+        },
+        "encoding": {
+          "y": {"datum": 11}
+        }
+      },
+      {
+        "mark": {"type": "area", "opacity": 0.1, "color": "#e74c3c"},
+        "encoding": {
+          "x": {
+            "field": "month", 
+            "type": "quantitative",
+            "scale": {
+              "domain": [1, 12]
+            }
+          },
+          "y": {"field": "mean_daily_max_uvi_clim", "type": "quantitative"},
+          "y2": {"datum": 0}
+        }
+      },
+      {
+        "mark": {"type": "line", "strokeWidth": 2.5, "color": "#e74c3c"},
+        "encoding": {
+          "x": {
+            "field": "month",
+            "type": "quantitative",
+            "scale": {
+              "domain": [1, 12]
+            },
+            "axis": {
+              "title": null,
+              "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+              "labelExpr": "datum.value == 1 ? 'J' : datum.value == 2 ? 'F' : datum.value == 3 ? 'M' : datum.value == 4 ? 'A' : datum.value == 5 ? 'M' : datum.value == 6 ? 'J' : datum.value == 7 ? 'J' : datum.value == 8 ? 'A' : datum.value == 9 ? 'S' : datum.value == 10 ? 'O' : datum.value == 11 ? 'N' : 'D'",
+              "labelFontSize": 10,
+              "labelAlign": "center",
+              "labelPadding": 5,
+              "grid": false
+            }
+          },
+          "y": {
+            "field": "mean_daily_max_uvi_clim",
+            "type": "quantitative",
+            "scale": {"domain": [0, 14]},
+            "axis": {
+              "title": "Mean Daily Max UVI",
+              "titleFontSize": 11,
+              "labelFontSize": 10,
+              "grid": false
+            }
+          }
+        }
+      },
+      {
+        "transform": [
+          {"calculate": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][datum.month-1]", "as": "month_name"}
+        ],
+        "mark": {
+          "type": "point",
+          "filled": true,
+          "size": 80,
+          "color": "#e74c3c",
+          "opacity": 0
+        },
+        "encoding": {
+          "x": {
+            "field": "month",
+            "type": "quantitative",
+            "scale": {
+              "domain": [1, 12]
+            }
+          },
+          "y": {
+            "field": "mean_daily_max_uvi_clim",
+            "type": "quantitative"
+          },
+          "tooltip": [
+            {"field": "city", "type": "nominal", "title": "City"},
+            {"field": "month_name", "type": "nominal", "title": "Month"},
+            {"field": "mean_daily_max_uvi_clim", "type": "quantitative", "title": "UVI", "format": ".1f"}
+          ]
+        }
+      },
+      {
+        "transform": [
+          {"aggregate": [{"op": "argmax", "field": "mean_daily_max_uvi_clim", "as": "max_record"}], "groupby": ["city"]},
+          {"calculate": "datum.max_record.month", "as": "peak_month"},
+          {"calculate": "datum.max_record.mean_daily_max_uvi_clim", "as": "peak_uvi"}
+        ],
+        "mark": {"type": "point", "filled": true, "size": 120, "color": "#c0392b", "stroke": "#fff", "strokeWidth": 2},
+        "encoding": {
+          "x": {
+            "field": "peak_month", 
+            "type": "quantitative",
+            "scale": {
+              "domain": [1, 12]
+            }
+          },
+          "y": {"field": "peak_uvi", "type": "quantitative"}
+        }
+      },
+      {
+        "transform": [
+          {"aggregate": [{"op": "argmax", "field": "mean_daily_max_uvi_clim", "as": "max_record"}], "groupby": ["city"]},
+          {"calculate": "datum.max_record.month", "as": "peak_month"},
+          {"calculate": "datum.max_record.mean_daily_max_uvi_clim", "as": "peak_uvi"}
+        ],
+        "mark": {"type": "text", "dy": -12, "fontSize": 10, "fontWeight": "bold", "color": "#c0392b"},
+        "encoding": {
+          "x": {
+            "field": "peak_month", 
+            "type": "quantitative",
+            "scale": {
+              "domain": [1, 12]
+            }
+          },
+          "y": {"field": "peak_uvi", "type": "quantitative"},
+          "text": {"field": "peak_uvi", "type": "quantitative", "format": ".1f"}
+        }
+      }
+    ]
+  }
+}

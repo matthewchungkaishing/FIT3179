@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive visualization showing UV Index and melanoma rates across Australian states">
+  <title>Sun & Skin — UV vs Melanoma in Australia</title>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Vega, Vega-Lite, Vega-Embed -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  
+  <main class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero" role="banner">
+      <h1>Sun & Skin — UV vs Melanoma in Australia</h1>
+      <p class="subtitle">Where UV hits hardest, when it spikes, and how outcomes compare.</p>
+    </section>
+
+    <!-- What/Why/How Section -->
+    <section class="what-why-how">
+      <div class="www-grid">
+        <div class="www-section">
+          <h3>What</h3>
+          <p>
+            This visualization explores UV radiation and melanoma incidence across Australia through interactive maps, 
+            seasonal patterns, and correlation analysis.
+          </p>
+        </div>
+        
+        <div class="www-section">
+          <h3>Why</h3>
+          <p>
+            Australia has the world's highest melanoma rates. Understanding where and when UV is strongest 
+            helps individuals make informed sun protection decisions.
+          </p>
+        </div>
+        
+        <div class="www-section">
+          <h3>How</h3>
+          <p>
+            Choropleth maps compare UV (ARPANSA 2022–2024) and melanoma rates (AIHW 2017–2021) by state. 
+            Click states to update details and highlight the scatter plot. Line charts show monthly UV patterns with protection thresholds.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Geographic Comparison Section -->
+    <section class="geographic-section">
+      <h2>Geographic patterns: UV exposure vs Melanoma incidence</h2>
+      
+      <div class="comparison-intro">
+        <p>
+          <strong>Context, not causation:</strong> While UV exposure is a major risk factor for melanoma, 
+          these maps show the relationship is complex. Queensland has both high UV <em>and</em> high melanoma rates, 
+          but Tasmania shows high melanoma despite lower UV—suggesting behavior, genetics, and historical sun exposure also play crucial roles.
+        </p>
+        <div class="microcopy-badge-inline">
+          <span class="badge-icon">☀️</span> UV Index 3+ requires sun protection (moderate or higher)
+        </div>
+      </div>
+
+      <!-- Side-by-side maps -->
+      <div class="maps-comparison-grid">
+        
+        <!-- UV Map Column -->
+        <div class="map-column">
+          <h3 class="map-title">UV Radiation by State</h3>
+          <figure class="chart-figure">
+            <div id="map-uv" class="chart" role="img" aria-label="Choropleth map showing annual mean UV Index across Australian states"></div>
+            <figcaption>
+              <strong>Latitude effect:</strong> Northern states (NT, QLD) experience highest annual UV, 
+              driven by proximity to the equator. Click a state to see detailed metrics.
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Melanoma Map Column -->
+        <div class="map-column">
+          <h3 class="map-title">Melanoma Incidence by State</h3>
+          <figure class="chart-figure">
+            <div id="map-melanoma" class="chart" role="img" aria-label="Choropleth map showing age-standardised melanoma rates across Australian states"></div>
+            <figcaption>
+              <strong>Queensland paradox:</strong> QLD has the highest melanoma rate despite not having 
+              the highest UV, reflecting complex factors including outdoor lifestyle and fair-skinned population.
+            </figcaption>
+          </figure>
+        </div>
+        
+      </div>
+
+      <!-- State Detail Card -->
+      <aside class="state-card-bottom" aria-label="Selected state information">
+        <h3>Selected State: <span id="card-state-name">New South Wales</span></h3>
+        <div class="state-metrics-grid" id="uv-metrics">
+          <div class="metric">
+            <span class="metric-label">Annual Mean UVI</span>
+            <span class="metric-value uv-color" id="card-annual-uvi">6.7</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Peak Month</span>
+            <span class="metric-value" id="card-peak-month">January</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Peak UVI</span>
+            <span class="metric-value uv-color" id="card-peak-uvi">11.7</span>
+          </div>
+        </div>
+        <div class="state-metrics-grid" id="melanoma-metrics" style="display: none;">
+          <div class="metric">
+            <span class="metric-label">ASR (per 100k)</span>
+            <span class="metric-value" id="card-asr">53.1</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Total Cases</span>
+            <span class="metric-value" id="card-total-cases">25,027</span>
+          </div>
+        </div>
+        <p class="card-hint">💡 Click any state on either map to update these values</p>
+      </aside>
+      
+    </section>
+
+    <!-- Seasonality Section -->
+    <section class="chart-section">
+      <h2>Seasonal UV patterns across capital cities</h2>
+      
+      <!-- Storytelling intro -->
+      <div class="seasonality-intro">
+        <p>
+          <strong>When should you be most sun-safe?</strong> UV radiation varies dramatically throughout the year. 
+          Summer brings extreme UV across all cities, but northern cities like Darwin maintain high UV even in winter.
+        </p>
+      </div>
+
+      <!-- Legend for threshold lines -->
+      <div class="uv-threshold-legend">
+        <h4>UV Index Protection Levels</h4>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <span class="legend-line" style="background: #d0d0d0;"></span>
+            <span class="legend-label"><strong>Moderate (3)</strong> — Wear sunscreen</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line" style="background: #ffa500;"></span>
+            <span class="legend-label"><strong>High (6)</strong> — Seek shade during midday</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line" style="background: #ff6b6b;"></span>
+            <span class="legend-label"><strong>Very High (8)</strong> — Extra precautions required</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-line" style="background: #d63031;"></span>
+            <span class="legend-label"><strong>Extreme (11+)</strong> — Avoid sun exposure</span>
+          </div>
+        </div>
+        <p class="legend-hint">💡 <strong>Hover over the line</strong> to see exact UV values for each month. Peak values are marked with <span style="color: #c0392b; font-weight: bold;">●</span> red dots. ( the single highest Mean Daily Max UVI in that city’s year) </p>
+      </div>
+
+      <figure class="chart-figure">
+        <div id="lines-uv" class="chart" role="img" aria-label="Small multiples line charts showing monthly UV patterns for eight Australian capital cities"></div>
+        <figcaption>
+          <strong>Key insight:</strong> All capital cities reach "extreme" UV levels in summer (December-February), 
+          but Darwin's tropical location means dangerous UV levels persist year-round. Melbourne and Hobart have the shortest high-UV seasons.
+        </figcaption>
+      </figure>
+    </section>
+
+
+    <!-- Scatter Plot Section -->
+    <section class="chart-section">
+      <h2>UV exposure and melanoma outcomes</h2>
+      <figure class="chart-figure">
+        <div id="scatter" class="chart" role="img" aria-label="Scatter plot showing relationship between UV index and melanoma rates"></div>
+        <figcaption>
+          The grey dashed line shows a simple linear trend between annual UV and melanoma rate. 
+          Many factors influence melanoma and there’s a delay between exposure and diagnosis. Point size indicates total cases. 
+          Select a state on the UV or Melanoma map to highlight it here.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- Key Takeaways / Conclusion Section -->
+    <section class="conclusion-section">
+      <h2>Key Takeaways: Understanding UV Risk in Australia</h2>
+      
+      <div class="takeaway-grid">
+        <div class="takeaway-card takeaway-geographic">
+          <div class="takeaway-icon">🗺️</div>
+          <h3>Geographic Variation</h3>
+          <p>
+            <strong>Northern states experience highest UV</strong> due to proximity to the equator. 
+            NT averages 11.4 UVI annually—well into the "extreme" range—while Tasmania averages 5.2 UVI.
+          </p>
+        </div>
+        
+        <div class="takeaway-card takeaway-seasonal">
+          <div class="takeaway-icon">📅</div>
+          <h3>Seasonal Patterns Matter</h3>
+          <p>
+            <strong>Summer demands maximum protection everywhere.</strong> All cities reach extreme UV (11+) in December-February. 
+            But Darwin maintains dangerous levels year-round—requiring constant vigilance.
+          </p>
+        </div>
+        
+        <div class="takeaway-card takeaway-paradox">
+          <div class="takeaway-icon">🔬</div>
+          <h3>The Queensland Paradox</h3>
+          <p>
+            <strong>Highest melanoma rates don't align perfectly with UV.</strong> QLD has 72.7 cases per 100k despite not having the highest UV, 
+            while Tasmania shows 56.4 cases with lower UV—highlighting the role of behavior, genetics, and historical exposure.
+          </p>
+        </div>
+        
+        <div class="takeaway-card takeaway-action">
+          <div class="takeaway-icon">☀️</div>
+          <h3>Practical Action</h3>
+          <p>
+            <strong>Sun protection isn't optional in Australia.</strong> With UV Index regularly exceeding 3 (moderate), 
+            daily sunscreen, protective clothing, and seeking shade during 10am-3pm are essential practices nationwide.
+          </p>
+        </div>
+      </div>
+      
+      <div class="conclusion-statement">
+        <p>
+          <strong>Bottom line:</strong> While UV exposure is a major melanoma risk factor, the relationship is nuanced. 
+          Geography determines baseline UV exposure, but individual behavior, skin type, and historical sun exposure 
+          ultimately shape outcomes. This visualization empowers Australians to make informed decisions about sun safety 
+          based on their location and the season—because understanding the risk is the first step to managing it.
+        </p>
+      </div>
+    </section>
+
+    <!-- Sources & Licenses Footer -->
+    <footer class="sources-footer">
+      <h2>Data Sources & Licenses</h2>
+      
+      <div class="data-sources">
+        <ul>
+          <li>
+            <strong>UV Index:</strong> ARPANSA capital-city UV measurements, processed to monthly means (years 2022–2024). 
+            <a href="https://creativecommons.org/licenses/by/2.5/au/" target="_blank" rel="noopener">CC BY 2.5 AU</a>
+          </li>
+          <li>
+            <strong>Melanoma incidence:</strong> Australian Institute of Health and Welfare (AIHW), 
+            <em>Cancer data in Australia</em>, Book 7 — State/territory incidence, age-standardised rate per 100k, 2017–2021 mean. 
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>
+          </li>
+          <li>
+            <strong>Geographic boundaries:</strong> Natural Earth Admin-1 state boundaries; graticules at 10° intervals. 
+            <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener">Public domain</a>
+          </li>
+          <li>
+            <strong>AI Assistance:</strong> ChatGPT 5 was used to help with data wrangling/filtering from data source and improve some of the layout features and debugging.
+          </li>
+        </ul>
+
+
+
+      </div>
+      
+      <div class="author-info">
+        <p><strong>Author:</strong> Matthew Chung Kai Shing, FIT 3179 (Monash University)  | <strong>Date:</strong> October 2025</p>
+      </div>
+      
+      
+    </footer>
+    
+  </main>
+
+  <!-- Application JavaScript -->
+  <script src="js/app.js"></script>
+  
+</body>
+</html>
+

@@ -1,0 +1,41 @@
+state_code,state_name,year,asr_per_100k,count
+ACT,Australian Capital Territory,2017,48.1,186
+ACT,Australian Capital Territory,2018,49.3,196
+ACT,Australian Capital Territory,2019,50.4,206
+ACT,Australian Capital Territory,2020,48.6,205
+ACT,Australian Capital Territory,2021,49.3,216
+NSW,New South Wales,2017,54.7,4956
+NSW,New South Wales,2018,54.7,5021
+NSW,New South Wales,2019,54.8,5147
+NSW,New South Wales,2020,51.1,4945
+NSW,New South Wales,2021,50.3,4958
+NT,Northern Territory,2017,45.8,83
+NT,Northern Territory,2018,45.6,85
+NT,Northern Territory,2019,48.1,91
+NT,Northern Territory,2020,47.1,93
+NT,Northern Territory,2021,47.7,96
+QLD,Queensland,2017,76.8,4158
+QLD,Queensland,2018,73.2,4079
+QLD,Queensland,2019,77.6,4442
+QLD,Queensland,2020,70.2,4171
+QLD,Queensland,2021,65.7,4016
+SA,South Australia,2017,37.3,803
+SA,South Australia,2018,35.4,788
+SA,South Australia,2019,39.8,911
+SA,South Australia,2020,38.6,903
+SA,South Australia,2021,36.7,878
+TAS,Tasmania,2017,49.9,339
+TAS,Tasmania,2018,58.6,401
+TAS,Tasmania,2019,60.6,414
+TAS,Tasmania,2020,60.8,431
+TAS,Tasmania,2021,52.2,390
+VIC,Victoria,2017,42.3,2985
+VIC,Victoria,2018,42.6,3080
+VIC,Victoria,2019,38.3,2837
+VIC,Victoria,2020,34.1,2591
+VIC,Victoria,2021,36.5,2837
+WA,Western Australia,2017,52.3,1455
+WA,Western Australia,2018,52.1,1483
+WA,Western Australia,2019,54.8,1624
+WA,Western Australia,2020,46.6,1427
+WA,Western Australia,2021,50.3,1599

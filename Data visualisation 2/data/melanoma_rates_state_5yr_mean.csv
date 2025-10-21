@@ -1,0 +1,9 @@
+state_code,state_name,asr_2017_2021_mean,count_sum
+ACT,Australian Capital Territory,49.14,1009
+NSW,New South Wales,53.120000000000005,25027
+NT,Northern Territory,46.86,448
+QLD,Queensland,72.7,20866
+SA,South Australia,37.56,4283
+TAS,Tasmania,56.42,1975
+VIC,Victoria,38.760000000000005,14330
+WA,Western Australia,51.220000000000006,7588

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 500,
+  "projection": {
+    "type": "equalEarth",
+    "center": [133, -27],
+    "scale": 850
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus_states.topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "graticules"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#e0e0e0",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/aus_states.topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.state_code",
+          "from": {
+            "data": {
+              "url": "data/melanoma_rates_state_5yr_mean.csv"
+            },
+            "key": "state_code",
+            "fields": [
+              "state_name",
+              "asr_2017_2021_mean",
+              "count_sum"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.5,
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "color": {
+          "field": "asr_2017_2021_mean",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "blues",
+            "domain": [35, 75]
+          },
+          "legend": {
+            "title": "Melanoma ASR (per 100k)",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 200,
+            "titleLimit": 250,
+            "labelLimit": 200,
+            "offset": 20
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "asr_2017_2021_mean",
+            "type": "quantitative",
+            "title": "ASR (per 100k)",
+            "format": ".1f"
+          },
+          {
+            "field": "count_sum",
+            "type": "quantitative",
+            "title": "Total Cases",
+            "format": ","
+          }
+        ]
+      },
+      "params": [
+        {
+          "name": "melanomaSel",
+          "select": {
+            "type": "point",
+            "fields": ["properties.state_code"]
+          }
+        }
+      ]
+    }
+  ]
+}
+

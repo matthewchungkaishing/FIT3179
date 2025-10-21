@@ -1,0 +1,634 @@
+/* ===========================
+   Reset & Base Styles
+   =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===========================
+   Container & Layout
+   =========================== */
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  background-color: #ffffff;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05);
+}
+
+/* ===========================
+   Typography
+   =========================== */
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 24px;
+  color: #2c3e50;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  color: #34495e;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+/* ===========================
+   Hero Section
+   =========================== */
+.hero {
+  text-align: center;
+  padding: 32px 0 24px;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 24px;
+}
+
+.microcopy-badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #856404;
+}
+
+/* ===========================
+   What/Why/How Section
+   =========================== */
+.what-why-how {
+  margin-bottom: 32px;
+  padding: 16px 0 24px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.www-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.www-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #3498db;
+  margin-bottom: 12px;
+}
+
+.www-section p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 0;
+}
+
+/* ===========================
+   Geographic Comparison Section
+   =========================== */
+.geographic-section {
+  margin-bottom: 40px;
+}
+
+.comparison-intro {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  border-left: 4px solid #3498db;
+}
+
+.comparison-intro p {
+  margin-bottom: 16px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2c3e50;
+}
+
+.microcopy-badge-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #856404;
+  margin-top: 8px;
+}
+
+.badge-icon {
+  font-size: 18px;
+}
+
+/* Side-by-side maps */
+.maps-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.map-column {
+  min-width: 0; /* Prevents grid overflow */
+  display: flex;
+  flex-direction: column;
+}
+
+.map-column .chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  text-align: center;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* State Card at Bottom */
+.state-card-bottom {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  margin-top: 32px;
+}
+
+.state-card-bottom h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.state-card-bottom h3 span {
+  color: #ffd700;
+  font-size: 22px;
+}
+
+.state-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+#melanoma-metrics.state-metrics-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: center;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+}
+
+.metric-value.uv-color {
+  color: #ffd700;
+}
+
+.card-hint {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  margin-top: 12px;
+  margin-bottom: 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ===========================
+   Chart Sections
+   =========================== */
+.chart-section {
+  margin-bottom: 40px;
+}
+
+.chart-figure {
+  margin-bottom: 24px;
+}
+
+.chart {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+figcaption {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #555;
+  margin-top: 12px;
+  padding-left: 8px;
+  border-left: 3px solid #3498db;
+}
+
+figcaption strong {
+  color: #2c3e50;
+}
+
+.caption-detail {
+  font-size: 13px;
+  color: #6c757d;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ===========================
+   Seasonality Section Enhancements
+   =========================== */
+.seasonality-intro {
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe5cc 100%);
+  padding: 16px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #ff6b35;
+}
+
+.seasonality-intro p {
+  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2c3e50;
+}
+
+.uv-threshold-legend {
+  background-color: #f8f9fa;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+}
+
+.uv-threshold-legend h4 {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2c3e50;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.legend-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-line {
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.legend-label {
+  font-size: 13px;
+  line-height: 1.4;
+  color: #555;
+}
+
+.legend-label strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.legend-hint {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ===========================
+   Footer / Sources
+   =========================== */
+.sources-footer {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.sources-footer h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  color: #2c3e50;
+}
+
+.data-sources {
+  margin-bottom: 32px;
+}
+
+.data-sources ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.data-sources li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 12px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.data-sources li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #3498db;
+  font-weight: bold;
+}
+
+.data-sources a {
+  color: #3498db;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.data-sources a:hover {
+  border-bottom-color: #3498db;
+}
+
+.author-info {
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.author-info p {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+/* ===========================
+   Accessibility
+   =========================== */
+a:focus,
+button:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* ===========================
+   Responsive Design
+   =========================== */
+@media (max-width: 1080px) {
+  .container {
+    max-width: 100%;
+  }
+  
+  .maps-comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .state-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .www-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 28px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+  }
+  
+  .container {
+    padding: 32px 16px;
+  }
+  
+  .chart {
+    overflow-x: auto;
+  }
+}
+
+/* ===========================
+   Vega-Lite Chart Overrides
+   =========================== */
+.vega-embed {
+  width: 100%;
+}
+
+.vega-embed summary {
+  display: none;
+}
+
+.vega-embed .vega-actions {
+  right: 0;
+  top: 0;
+}
+
+/* ===========================
+   Conclusion Section
+   =========================== */
+.conclusion-section {
+  margin-top: 48px;
+  margin-bottom: 64px;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  border: 2px solid #dee2e6;
+}
+
+.conclusion-section h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 32px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.conclusion-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  border-radius: 2px;
+}
+
+.takeaway-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.takeaway-card {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-left: 4px solid #3498db;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.takeaway-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.takeaway-geographic {
+  border-left-color: #e74c3c;
+}
+
+.takeaway-seasonal {
+  border-left-color: #f39c12;
+}
+
+.takeaway-paradox {
+  border-left-color: #9b59b6;
+}
+
+.takeaway-action {
+  border-left-color: #2ecc71;
+}
+
+.takeaway-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.takeaway-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.takeaway-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.takeaway-card p strong {
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.conclusion-statement {
+  background: white;
+  padding: 24px 28px;
+  border-radius: 10px;
+  border: 2px solid #3498db;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.1);
+}
+
+.conclusion-statement p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #2c3e50;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.conclusion-statement strong {
+  color: #3498db;
+  font-weight: 700;
+}

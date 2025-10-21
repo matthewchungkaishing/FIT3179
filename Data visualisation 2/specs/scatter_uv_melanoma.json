@@ -1,0 +1,154 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 400,
+  "data": {
+    "url": "data/uv_melanoma_scatter.csv"
+  },
+  "params": [
+    {
+      "name": "selectedState",
+      "value": null
+    }
+  ],
+  "layer": [
+    {
+      "transform": [
+        {
+          "regression": "asr_2017_2021_mean",
+          "on": "annual_mean_uvi",
+          "extent": [4.5, 12]
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "color": "#95a5a6",
+        "strokeWidth": 2,
+        "strokeDash": [4, 4]
+      },
+      "encoding": {
+        "x": {
+          "field": "annual_mean_uvi",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "asr_2017_2021_mean",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "x": {
+          "field": "annual_mean_uvi",
+          "type": "quantitative",
+          "title": "Annual Mean UVI",
+          "scale": {
+            "domain": [4.5, 12]
+          },
+          "axis": {
+            "grid": true,
+            "gridOpacity": 0.3
+          }
+        },
+        "y": {
+          "field": "asr_2017_2021_mean",
+          "type": "quantitative",
+          "title": "Melanoma ASR (per 100k), 2017–21 mean",
+          "scale": {
+            "domain": [35, 75]
+          },
+          "axis": {
+            "grid": true,
+            "gridOpacity": 0.3
+          }
+        },
+        "size": {
+          "field": "count_sum",
+          "type": "quantitative",
+          "scale": {
+            "range": [100, 1000]
+          },
+          "legend": null
+        },
+        "color": {
+          "condition": {
+            "test": "selectedState === null || datum.state_code === selectedState",
+            "value": "#3498db"
+          },
+          "value": "#bdc3c7"
+        },
+        "opacity": {
+          "condition": {
+            "test": "selectedState === null || datum.state_code === selectedState",
+            "value": 1
+          },
+          "value": 0.25
+        },
+        "tooltip": [
+          {
+            "field": "state_code",
+            "type": "nominal",
+            "title": "State Code"
+          },
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "annual_mean_uvi",
+            "type": "quantitative",
+            "title": "Annual Mean UVI",
+            "format": ".1f"
+          },
+          {
+            "field": "asr_2017_2021_mean",
+            "type": "quantitative",
+            "title": "Melanoma ASR",
+            "format": ".1f"
+          },
+          {
+            "field": "count_sum",
+            "type": "quantitative",
+            "title": "Total Cases",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "selectedState !== null && datum.state_code === selectedState"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "dy": -25,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#000000"
+      },
+      "encoding": {
+        "x": {
+          "field": "annual_mean_uvi",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "asr_2017_2021_mean",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "state_name",
+          "type": "nominal"
+        }
+      }
+    }
+  ]
+}
+

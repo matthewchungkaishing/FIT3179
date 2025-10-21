@@ -1,0 +1,112 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 500,
+  "projection": {
+    "type": "equalEarth",
+    "center": [133, -27],
+    "scale": 850
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/aus_states.topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "graticules"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#e0e0e0",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "data/aus_states.topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "transform": [
+        {
+          "lookup": "properties.state_code",
+          "from": {
+            "data": {
+              "url": "data/uv_state_metric.csv"
+            },
+            "key": "state_code",
+            "fields": [
+              "state_name",
+              "annual_mean_uvi",
+              "peak_month",
+              "peak_uvi"
+            ]
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.5,
+        "cursor": "pointer"
+      },
+      "encoding": {
+        "color": {
+          "field": "annual_mean_uvi",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "inferno",
+            "domain": [5, 12]
+          },
+          "legend": {
+            "title": "Annual Mean UVI",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "gradientLength": 200,
+            "titleLimit": 200,
+            "labelLimit": 200,
+            "offset": 20
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state_name",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "annual_mean_uvi",
+            "type": "quantitative",
+            "title": "Annual Mean UVI",
+            "format": ".1f"
+          },
+          {
+            "field": "peak_month",
+            "type": "quantitative",
+            "title": "Peak Month"
+          },
+          {
+            "field": "peak_uvi",
+            "type": "quantitative",
+            "title": "Peak UVI",
+            "format": ".1f"
+          }
+        ]
+      },
+      "params": [
+        {
+          "name": "stateSel",
+          "select": {
+            "type": "point",
+            "fields": ["properties.state_code"]
+          }
+        }
+      ]
+    }
+  ]
+}
+
